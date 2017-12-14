@@ -7,10 +7,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.lmig.gfc.invoicify.models.Company;
+import com.lmig.gfc.invoicify.services.CompanyRepository;
 
 @Controller
 @RequestMapping("/admin/companies")
 public class AdminCompaniesController {
+	
+	
+	private CompanyRepository admincompanyRepo;
+	
+public AdminCompaniesController(CompanyRepository admincompanyRepo) {
+	this.admincompanyRepo = admincompanyRepo;
+}
 	
 	@GetMapping("")
 	public ModelAndView showDefault() {
@@ -21,9 +29,8 @@ public class AdminCompaniesController {
 	@PostMapping("")
 	public ModelAndView createCompany(Company company) {
 		ModelAndView mv = new ModelAndView("redirect:/admin/companies");
-		
+		admincompanyRepo.save (company);
 		// Save the company
-		
 		return mv;
 	}
 	

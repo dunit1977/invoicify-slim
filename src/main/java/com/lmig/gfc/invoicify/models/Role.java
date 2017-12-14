@@ -12,6 +12,13 @@ import javax.persistence.Table;
 @Table(name="invoicify_role")
 public class Role {
 
+	public Role(Long id, String name, User user) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.user = user;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
