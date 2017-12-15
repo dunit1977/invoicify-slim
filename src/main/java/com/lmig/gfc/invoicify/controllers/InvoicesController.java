@@ -46,14 +46,15 @@ public class InvoicesController {
 		// there's more than one invoice and false if there are zero invoices
 
 //		boolean showTable = invoices.isEmpty() ? false : true;
-		boolean isshowTable;
-		if (invoices.isEmpty()) {
-			
-			isshowTable = false;
-		} else {
-			isshowTable = true;
-		}
-		mv.addObject("showTable",isshowTable);
+//		boolean isshowTable;
+//		if (invoices.isEmpty()) {
+//			
+//			isshowTable = false;
+//		} else {
+//			isshowTable = true;
+//		}
+//		mv.addObject("showTable",isshowTable);
+		mv.addObject("showtable",invoices.size()>0);
 		return mv;
 	}
 
@@ -96,8 +97,14 @@ public class InvoicesController {
 		// Get the user from the auth.getPrincipal() method
 		User user = (User) auth.getPrincipal();
 		// Find all billing records in the recordIds array
+		List<BillingRecord> billingRecords = new ArrayList<BillingRecord>();
+		for (long id : recordIds) {
+			billingRecords.add(billingRecordRepo.findOne(id));
+		}
+		
+		
 //		****** here's where I stopped****** List<BillingRecord> invoices = Invoice.findAll(long [<recordIds>]);
-		List<BillingRecord> billingRecords = billingRecordRepo.findAll();
+//		List<BillingRecord> billingRecords = billingRecordRepo.findAll();
 		// Create a new list that can hold invoice line items
 //		****** here's where I stopped******	List<InvoiceLineItems> invoices = invoiceRepo.
 		List<InvoiceLineItem> invoiceitemList = new ArrayList<InvoiceLineItem>();
@@ -128,3 +135,5 @@ public class InvoicesController {
 	}
 
 }
+
+
